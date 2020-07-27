@@ -6,6 +6,7 @@ import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ForkJoinPool;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -28,18 +29,16 @@ public class Shop {
         });
     }
 
-    public static List<String> findPrices(List<Shop> shops, String product) {
+    public static List<String> findPrices(List<Shop> shops, String product, Executor executor) {
         List<CompletableFuture<String>> priceFutures = shops.stream().map(
                 shop ->
                         CompletableFuture.supplyAsync(
-                                () -> shop.getName() + " price is " + shop.getPrice(product),
-                                getExecutor(shops.size())))
+                                () -> shop.getName() + " price is " + shop.getPrice(product), executor))
                 .collect(Collectors.toList());
         return priceFutures.stream().map(CompletableFuture::join).collect(Collectors.toList());
     }
 
-    public static List<String> findPricesWithDiscount(List<Shop> shops, String product) {
-        final Executor executor = getExecutor(shops.size());
+    public static List<String> findPricesWithDiscount(List<Shop> shops, String product, Executor executor) {
         List<CompletableFuture<String>> priceFutures = shops.stream().map(
                 shop ->
                         CompletableFuture.supplyAsync(
@@ -53,8 +52,7 @@ public class Shop {
         return priceFutures.stream().map(CompletableFuture::join).collect(Collectors.toList());
     }
 
-    public static Stream<CompletableFuture<String>> findPricesWithDiscountStreamWithRandomDelay(List<Shop> shops, String product) {
-        final Executor executor = getExecutor(shops.size());
+    public static Stream<CompletableFuture<String>> findPricesWithDiscountStreamWithRandomDelay(List<Shop> shops, String product, Executor executor) {
         return shops.stream().map(
                 shop ->
                         CompletableFuture.supplyAsync(
@@ -91,11 +89,11 @@ public class Shop {
         return CompletableFuture.supplyAsync(() -> calculatePrice(product));
     }
 
-    public CompletableFuture<Double> getPriceInCurrencyAsync(Money.Currency currency, String product) {
-        return CompletableFuture.supplyAsync(() -> getPrice(product))
+    public CompletableFuture<Double> getPriceInCurrencyAsync(Money.Currency currency, String product, Executor executor) {
+        return CompletableFuture.supplyAsync(() -> getPrice(product), executor)
                 .thenCombine(
-                    CompletableFuture.supplyAsync(() -> Money.getRate(currency)),
-                (price, rate) -> price / rate);
+                        CompletableFuture.supplyAsync(() -> Money.getRate(currency), executor),
+                        (price, rate) -> price / rate);
     }
 
     private double calculatePrice(String product) {
@@ -143,8 +141,9 @@ public class Shop {
                 new Shop("LetsSaveBig"),
                 new Shop("MyFavoriteShop"),
                 new Shop("BuyItAll"));
+        final Executor executor = getExecutor(shops.size());
         long start2 = System.nanoTime();
-        System.out.println(findPrices(shops, "myPhone"));
+        System.out.println(findPrices(shops, "myPhone", executor));
         long duration2 = (System.nanoTime() - start2) / 1_000_000;
         System.out.println("Done in " + duration2 + " msecs");
         // System.out.println(Runtime.getRuntime().availableProcessors()); - 12
@@ -152,28 +151,31 @@ public class Shop {
         // Test3: composing sync and async operations
         System.out.println("Test3");
         long start3 = System.nanoTime();
-        System.out.println(findPricesWithDiscount(shops, "myPhone"));
+        System.out.println(findPricesWithDiscount(shops, "myPhone", executor));
         long duration3 = (System.nanoTime() - start3) / 1_000_000;
         System.out.println("Done in " + duration3 + " msecs");
 
         // Test4: combining two independent CompletableFutures
         System.out.println("Test4");
-        long start4 = System.nanoTime();
-        CompletableFuture<Double> futurePriceInCurrency = shop.getPriceInCurrencyAsync(Money.Currency.EUR, "my favorite product");
+        List<Executor> executors = Arrays.asList(ForkJoinPool.commonPool(), getExecutor(1));
+        for (Executor e : executors) {
+            long start4 = System.nanoTime();
+            CompletableFuture<Double> futurePriceInCurrency = shop.getPriceInCurrencyAsync(Money.Currency.EUR, "my favorite product", e);
 
-        try {
-            double price = futurePriceInCurrency.get();
-            System.out.printf("Price is %.2f in %s%n", price, Money.Currency.EUR);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            try {
+                double price = futurePriceInCurrency.get();
+                System.out.printf("Price is %.2f in %s%n", price, Money.Currency.EUR);
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+            long duration4 = ((System.nanoTime() - start4) / 1_000_000);
+            System.out.println("Done in " + duration4 + " msecs");
         }
-        long duration4 = ((System.nanoTime() - start4) / 1_000_000);
-        System.out.println("Done in " + duration4 + " msecs");
 
         // Test5: reacting to a completableFuture completion
         System.out.println("Test5");
         long start5 = System.nanoTime();
-        CompletableFuture[] futures = findPricesWithDiscountStreamWithRandomDelay(shops,"myPhone")
+        CompletableFuture[] futures = findPricesWithDiscountStreamWithRandomDelay(shops,"myPhone", executor)
                 .map(f -> f.thenAccept(
                         s -> System.out.println(s + " (done in " + ((System.nanoTime() - start5) / 1_000_000) + " msecs)")))
                 .toArray(size -> new CompletableFuture[size]);

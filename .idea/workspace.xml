@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3ef2b709-acba-4000-85f3-d88b9806ec18" name="Default Changelist" comment="" />
+    <list default="true" id="3ef2b709-acba-4000-85f3-d88b9806ec18" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Shop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Shop.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,6 +18,9 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1f5pWOed8q2MVf6a36y5MkXn1tB" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -22,6 +29,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="project.structure.last.edited" value="Project" />
@@ -60,6 +68,8 @@
       <option name="presentableId" value="Default" />
       <updated>1595517838695</updated>
       <workItem from="1595517840089" duration="17725000" />
+      <workItem from="1595610846425" duration="3472000" />
+      <workItem from="1595874135811" duration="5673000" />
     </task>
     <servers />
   </component>
@@ -67,29 +77,37 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1636" height="253" key="GridCell.Tab.0.bottom" timestamp="1595602439226">
+    <state x="100" y="124" width="1480" height="746" key="DiffContextDialog" timestamp="1595884051675">
       <screen x="0" y="23" width="1680" height="947" />
     </state>
-    <state width="1636" height="253" key="GridCell.Tab.0.bottom/0.23.1680.947@0.23.1680.947" timestamp="1595602439226" />
+    <state x="100" y="124" width="1480" height="746" key="DiffContextDialog/0.23.1680.947@0.23.1680.947" timestamp="1595884051675" />
+    <state width="1636" height="253" key="GridCell.Tab.0.bottom" timestamp="1595883760087">
+      <screen x="0" y="23" width="1680" height="947" />
+    </state>
+    <state width="1636" height="253" key="GridCell.Tab.0.bottom/0.23.1680.947@0.23.1680.947" timestamp="1595883760087" />
     <state width="1636" height="253" key="GridCell.Tab.0.bottom/0.23.1680.949@0.23.1680.949" timestamp="1595537337982" />
     <state width="1636" height="253" key="GridCell.Tab.0.bottom/0.23.1680.952@0.23.1680.952" timestamp="1595534221728" />
-    <state width="1636" height="253" key="GridCell.Tab.0.center" timestamp="1595602439225">
+    <state width="1636" height="253" key="GridCell.Tab.0.center" timestamp="1595883760087">
       <screen x="0" y="23" width="1680" height="947" />
     </state>
-    <state width="1636" height="253" key="GridCell.Tab.0.center/0.23.1680.947@0.23.1680.947" timestamp="1595602439225" />
+    <state width="1636" height="253" key="GridCell.Tab.0.center/0.23.1680.947@0.23.1680.947" timestamp="1595883760087" />
     <state width="1636" height="253" key="GridCell.Tab.0.center/0.23.1680.949@0.23.1680.949" timestamp="1595537337982" />
     <state width="1636" height="253" key="GridCell.Tab.0.center/0.23.1680.952@0.23.1680.952" timestamp="1595534221727" />
-    <state width="1636" height="253" key="GridCell.Tab.0.left" timestamp="1595602439225">
+    <state width="1636" height="253" key="GridCell.Tab.0.left" timestamp="1595883760086">
       <screen x="0" y="23" width="1680" height="947" />
     </state>
-    <state width="1636" height="253" key="GridCell.Tab.0.left/0.23.1680.947@0.23.1680.947" timestamp="1595602439225" />
+    <state width="1636" height="253" key="GridCell.Tab.0.left/0.23.1680.947@0.23.1680.947" timestamp="1595883760086" />
     <state width="1636" height="253" key="GridCell.Tab.0.left/0.23.1680.949@0.23.1680.949" timestamp="1595537337981" />
     <state width="1636" height="253" key="GridCell.Tab.0.left/0.23.1680.952@0.23.1680.952" timestamp="1595534221726" />
-    <state width="1636" height="253" key="GridCell.Tab.0.right" timestamp="1595602439226">
+    <state width="1636" height="253" key="GridCell.Tab.0.right" timestamp="1595883760087">
       <screen x="0" y="23" width="1680" height="947" />
     </state>
-    <state width="1636" height="253" key="GridCell.Tab.0.right/0.23.1680.947@0.23.1680.947" timestamp="1595602439226" />
+    <state width="1636" height="253" key="GridCell.Tab.0.right/0.23.1680.947@0.23.1680.947" timestamp="1595883760087" />
     <state width="1636" height="253" key="GridCell.Tab.0.right/0.23.1680.949@0.23.1680.949" timestamp="1595537337982" />
     <state width="1636" height="253" key="GridCell.Tab.0.right/0.23.1680.952@0.23.1680.952" timestamp="1595534221727" />
+    <state x="538" y="328" key="com.intellij.ide.util.TipDialog" timestamp="1595610846449">
+      <screen x="0" y="23" width="1680" height="947" />
+    </state>
+    <state x="538" y="328" key="com.intellij.ide.util.TipDialog/0.23.1680.947@0.23.1680.947" timestamp="1595610846449" />
   </component>
 </project>
